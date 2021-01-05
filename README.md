@@ -1,6 +1,6 @@
 # vaidamhealth
 <h1>
-This is laravel project use the base on CURD operation 
+This is laravel project based on CURD operation 
 </h1>
 <hr>
 <h4>
