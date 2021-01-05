@@ -2,6 +2,12 @@
 
 return [
 
+    'assignee_group'=>[
+        'Group1',
+        'Group2',
+        'Group3',
+        'Group4'
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Name

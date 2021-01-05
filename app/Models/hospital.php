@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class hospital extends Model
 {
     use HasFactory;
+    
+
+    public $timestamps = true;
+    protected $fillable = ['created_at','updated_at']; 
 }

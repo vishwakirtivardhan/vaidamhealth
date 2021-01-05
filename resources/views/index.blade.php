@@ -25,8 +25,26 @@
             </div>
         </div>
     </nav>
+    
+
     @if($form=== "false")
     <div class="container">
+
+    @if (session('statusDelete'))
+    <br>
+    <div class="text-center alert alert-danger">
+        {{ session('statusDelete') }}
+    </div>
+    <br>
+    @endif
+
+    @if (session('datainsert'))
+    <br>
+    <div class="text-center alert alert-success">
+        {{ session('datainsert') }}
+    </div>
+    <br>
+    @endif
         <a href="edit/new"><Button class="btn-primary float-right m-4">Add Hospital Records</button></a>
     </div>
     @endif
@@ -40,10 +58,10 @@
             @csrf
             <input type="hidden" value="@if($formType==='AddNew') @else {{$data_edit[0]->id}} @endif" name="id">
             <div class="form-group col-6">
-                <label for="exampleFormControlInput1">hospital_id</label>
-                <input type="text" onkeyup="if (/\D/g.test(this.value))this.value = this.value.replace(/\D/g, '')" name="hospital_id"
+                <label for="exampleFormControlInput1">Hospital_id</label>
+                <input type="text" maxlength="10" onkeyup="if (/\D/g.test(this.value))this.value = this.value.replace(/\D/g, '')" name="hospital_id"
                     value="@if($formType==='AddNew') @else {{$data_edit[0]->hospital_id}} @endif" class="form-control"
-                    id="exampleFormControlInput1" placeholder="Hospital Id">
+                    id="exampleFormControlInput1" placeholder="7897979797">
 
                 @error('hospital_id')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -52,19 +70,19 @@
             </div>
 
             <div class="form-group col-6">
-                <label for="exampleFormControlInput1">domestic_intimation_to</label>
-                <input type="text" name="domestic_intimation_to"
+                <label for="exampleFormControlInput1">Domestic_intimation_to</label>
+                <input type="email" name="domestic_intimation_to"
                     value="@if($formType==='AddNew') @else {{$data_edit[0]->domestic_intimation_to}} @endif"
-                    class="form-control" id="exampleFormControlInput1" placeholder="Enter here">
+                    class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
                 @error('domestic_intimation_to')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
             <div class="form-group col-6">
-                <label for="exampleFormControlInput1">di_cc</label>
-                <input type="text" name="di_cc" value="@if($formType==='AddNew') @else {{$data_edit[0]->di_cc}} @endif"
-                    class="form-control" id="exampleFormControlInput1" placeholder="Enter here">
+                <label for="exampleFormControlInput1">Di_cc</label>
+                <input type="email" name="di_cc" value="@if($formType==='AddNew') @else {{$data_edit[0]->di_cc}} @endif"
+                    class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
 
                 @error('di_cc')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -72,8 +90,8 @@
             </div>
 
             <div class="form-group col-6">
-                <label for="exampleFormControlInput1">di_bcc</label>
-                <input type="text" name="di_bcc"
+                <label for="exampleFormControlInput1">Di_bcc</label>
+                <input type="email" name="di_bcc"
                     value="@if($formType==='AddNew') @else {{$data_edit[0]->di_bcc}} @endif" class="form-control"
                     id="exampleFormControlInput1" placeholder="name@example.com">
                 @error('di_bcc')
@@ -82,10 +100,10 @@
             </div>
 
             <div class="form-group col-6">
-                <label for="exampleFormControlInput1">de_email</label>
+                <label for="exampleFormControlInput1">De_email</label>
                 <input type="email" name="de_email"
                     value="@if($formType==='AddNew') @else {{$data_edit[0]->de_email}} @endif" class="form-control"
-                    id="exampleFormControlInput1" placeholder="Enter here">
+                    id="exampleFormControlInput1" placeholder="name@example.com">
 
                 @error('de_email')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -93,15 +111,15 @@
             </div>
 
             <div class="form-group col-6">
-                <label for="exampleFormControlSelect1">assignee_group</label>
+                <label for="exampleFormControlSelect1">Assignee_group</label>
                 <select class="form-control" name="assignee_group"
                     value="@if($formType==='AddNew') @else {{$data_edit[0]->assignee_group}} @endif"
                     id="exampleFormControlSelect1">
-                    <option>Group 1</option>
-                    <option>Group 2</option>
-                    <option>Group 3</option>
-                    <option>Group 4</option>
-                    <option>Group 5</option>
+                    
+                    @foreach($config as $res )
+                    <option>{{ $res }}</option>
+                    @endforeach
+                    
                 </select>
 
                 @error('assignee_group')
@@ -110,7 +128,7 @@
             </div>
 
             <div class="form-group col-12">
-                <button>@if($formType=='Update'){{'Update Record Now !'}} @else {{ 'Add New Record'}} @endif </button>
+                <button class="btn-success">@if($formType=='Update'){{'Update Record Now !'}} @else {{ 'Add New Record'}} @endif </button>
             </div>
 
         </form>
@@ -119,17 +137,17 @@
 
 
     @if($form=== "false")
-    <div class="container">
+    <div class="p-2">
         <table id="example" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th>id </th>
-                    <th>hospital_id/Name</th>
-                    <th>domestic_intimation_to</th>
-                    <th>di_cc</th>
-                    <th>di_bcc</th>
-                    <th>de_email</th>
-                    <th>de_email</th>
+                    <th>Id </th>
+                    <th>Hospital_id/Name</th>
+                    <th>Domestic_intimation_to</th>
+                    <th>Di_cc</th>
+                    <th>Di_bcc</th>
+                    <th>De_email</th>
+                    <th>Assignee_group</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -144,20 +162,20 @@
                     <td>{{ $res->di_bcc }}</td>
                     <td>{{ $res->de_email }}</td>
                     <td>{{ $res->assignee_group }}</td>
-                    <td><a href="edit/{{ $res->id }}"> <Button>Edit</Button></a><a href="delete/{{ $res->id }}">
-                            <Button>Delete</Button></a> </td>
+                    <td><a href="edit/{{ $res->id }}" > <Button class="btn-success">Edit</Button></a>
+                    <a href="delete/{{ $res->id }}" ><Button class="btn-danger mt-1">Delete</Button></a> </td>
                 </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
-                    <th>id </th>
-                    <th>hospital_id/Name</th>
-                    <th>domestic_intimation_to</th>
-                    <th>di_cc</th>
-                    <th>di_bcc</th>
-                    <th>de_email</th>
-                    <th>de_email</th>
+                    <th>Id </th>
+                    <th>Hospital_id/Name</th>
+                    <th>Domestic_intimation_to</th>
+                    <th>Di_cc</th>
+                    <th>Di_bcc</th>
+                    <th>De_email</th>
+                    <th>Assignee_group</th>
                     <th>Action</th>
                 </tr>
             </tfoot>
