@@ -7,11 +7,7 @@ use App\Models\hospital;
 class curdops extends Controller
 {
     
-    public function __construct()
-    {
-         $hospital = new hospital;
-        
-    }
+    
     // ------ show List of dataset ------ //
     function lists(Request $res){
                  $hospital =new hospital;
@@ -24,8 +20,7 @@ class curdops extends Controller
     function delete(Request $res){
         $hospital =new hospital;
         $data = $hospital->where('id','=', $res->id)->delete();
-        return redirect('index');
-        echo "<script>alert('Delete Successfully')</script>";
+        return redirect('index')->with('statusDelete','Delete Successfully');
     }
     // ------ End ------ //
 
@@ -33,12 +28,14 @@ class curdops extends Controller
     function edit(Request $res){
         $hospital =new hospital;
         $data = $hospital->get();
+        // This is Config dropdown 
+        $dataconfig=config('app.assignee_group');
         if($res->id==='new'){
-            return view('index',['list'=>$data, 'data_edit'=>'','form'=>'true','formType'=>'AddNew']);
+            return view('index',['list'=>$data,'config'=>$dataconfig, 'data_edit'=>'','form'=>'true','formType'=>'AddNew']);
         }
         else{
         $data_edit = $hospital->where('id','=', $res->id)->get();
-        return view('index',['list'=>$data, 'data_edit'=>$data_edit,'form'=>'true','formType'=>'Update']);    
+        return view('index',['list'=>$data, 'config'=>$dataconfig,'data_edit'=>$data_edit,'form'=>'true','formType'=>'Update']);    
         }
     }
     // ------ End ------ //
@@ -49,9 +46,9 @@ class curdops extends Controller
 
         $validated = $res->validate([
             'hospital_id' => 'required|numeric',
-            'domestic_intimation_to' => 'required',
-            'di_cc'=>'required|max:255',
-            'di_bcc'=>'required',
+            'domestic_intimation_to' => 'required|email',
+            'di_cc'=>'required|max:255|email',
+            'di_bcc'=>'required|email',
             'de_email'=>'required|email',
             'assignee_group'=>'required'
         ]);
@@ -65,8 +62,8 @@ class curdops extends Controller
             'de_email'=>$res->de_email,
             'assignee_group'=>$res->assignee_group]
         );
-        echo '<script>alert("DataUpdate Successfully")</script>';
-        return redirect('index');        
+        
+        return redirect('index')->with('datainsert','Data Insert Successfully');        
     }
     // ------ End ------ //
 
