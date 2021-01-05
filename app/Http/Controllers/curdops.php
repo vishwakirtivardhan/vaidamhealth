@@ -7,7 +7,6 @@ use App\Models\hospital;
 class curdops extends Controller
 {
     
-
     public function __construct()
     {
          $hospital = new hospital;
@@ -26,6 +25,7 @@ class curdops extends Controller
         $hospital =new hospital;
         $data = $hospital->where('id','=', $res->id)->delete();
         return redirect('index');
+        echo "<script>alert('Delete Successfully')</script>";
     }
     // ------ End ------ //
 
@@ -56,7 +56,6 @@ class curdops extends Controller
             'assignee_group'=>'required'
         ]);
 
-
        $data =  $hospital->updateOrInsert(
             ['id'=>$res->id],
             ['hospital_id' => $res->hospital_id,
@@ -66,6 +65,7 @@ class curdops extends Controller
             'de_email'=>$res->de_email,
             'assignee_group'=>$res->assignee_group]
         );
+        echo '<script>alert("DataUpdate Successfully")</script>';
         return redirect('index');        
     }
     // ------ End ------ //

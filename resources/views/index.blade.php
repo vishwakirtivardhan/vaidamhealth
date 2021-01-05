@@ -11,7 +11,20 @@
 </head>
 
 <body>
-
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Project Curd</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                
+                <a class="nav-item nav-link" target="_blank" href="https://github.com/vishwakirtivardhan/vaidamhealth"> Github Link</a>
+    
+                <a class="nav-item nav-link " target="_blank" href="https://drive.google.com/file/d/1nDUxwqL8jrTLABHXeTUB2z3aT5oM7F5P/view">Resume</a>
+            </div>
+        </div>
+    </nav>
     @if($form=== "false")
     <div class="container">
         <a href="edit/new"><Button class="btn-primary float-right m-4">Add Hospital Records</button></a>
@@ -152,6 +165,8 @@
 
     </div>
 @endif
+<br><br><hr><br><br><br><br>
+<
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script>
