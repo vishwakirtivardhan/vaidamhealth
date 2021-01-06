@@ -16,11 +16,20 @@ class curdops extends Controller
     }
     // ------ End ------ //
 
+        // ------ show List of dataset ------ //
+        function listing(Request $res){
+            $hospital =new hospital;
+           $data = $hospital->get();
+           return view('ajaxlisting',['list'=>$data,'form'=>'false']);    
+}
+// ------ End ------ //
+
     // ------ Delete the records ------ //
     function delete(Request $res){
         $hospital =new hospital;
-        $data = $hospital->where('id','=', $res->id)->delete();
-        return redirect('index')->with('statusDelete','Delete Successfully');
+        $datadete = $hospital->where('id','=', $res->id)->delete();
+        
+        return redirect('lisitng')->with('statusDelete','Delete Successfully');
     }
     // ------ End ------ //
 
@@ -29,21 +38,25 @@ class curdops extends Controller
         $hospital =new hospital;
         $data = $hospital->get();
         // This is Config dropdown 
+        // echo $res->id;
+        // die();
         $dataconfig=config('app.assignee_group');
         if($res->id==='new'){
-            return view('index',['list'=>$data,'config'=>$dataconfig, 'data_edit'=>'','form'=>'true','formType'=>'AddNew']);
+            return view('ajaxupdate',['list'=>$data,'config'=>$dataconfig, 'data_edit'=>'','form'=>'true','formType'=>'AddNew']);
         }
         else{
         $data_edit = $hospital->where('id','=', $res->id)->get();
-        return view('index',['list'=>$data, 'config'=>$dataconfig,'data_edit'=>$data_edit,'form'=>'true','formType'=>'Update']);    
+        return view('ajaxupdate',['list'=>$data, 'config'=>$dataconfig,'data_edit'=>$data_edit,'form'=>'true','formType'=>'Update']);    
         }
     }
     // ------ End ------ //
 
     // ------ Upadate and Add New Records ------// 
     function update(Request $res){
+        
         $hospital =new hospital;
-
+        print($res->id);
+       // die('jfjjf');
         $validated = $res->validate([
             'hospital_id' => 'required|numeric',
             'domestic_intimation_to' => 'required|email',
@@ -52,7 +65,7 @@ class curdops extends Controller
             'de_email'=>'required|email',
             'assignee_group'=>'required'
         ]);
-
+            //die('after valida');
        $data =  $hospital->updateOrInsert(
             ['id'=>$res->id],
             ['hospital_id' => $res->hospital_id,
@@ -62,8 +75,9 @@ class curdops extends Controller
             'de_email'=>$res->de_email,
             'assignee_group'=>$res->assignee_group]
         );
+        //die('after query');
         
-        return redirect('index')->with('datainsert','Data Insert Successfully');        
+        return redirect('lisitng')->with('datainsert','Data Insert Successfully');        
     }
     // ------ End ------ //
 

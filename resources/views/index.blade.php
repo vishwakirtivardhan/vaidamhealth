@@ -11,134 +11,53 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Project Curd</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                
-                <a class="nav-item nav-link" target="_blank" href="https://github.com/vishwakirtivardhan/vaidamhealth"> Github Link</a>
-    
-                <a class="nav-item nav-link " target="_blank" href="https://drive.google.com/file/d/1nDUxwqL8jrTLABHXeTUB2z3aT5oM7F5P/view">Resume</a>
+
+                <a class="nav-item nav-link" target="_blank" href="https://github.com/vishwakirtivardhan/vaidamhealth">
+                    Github Link</a>
+
+                <a class="nav-item nav-link " target="_blank"
+                    href="https://drive.google.com/file/d/1nDUxwqL8jrTLABHXeTUB2z3aT5oM7F5P/view">Resume</a>
             </div>
         </div>
     </nav>
-    
+
 
     @if($form=== "false")
     <div class="container">
 
-    @if (session('statusDelete'))
-    <br>
-    <div class="text-center alert alert-danger">
-        {{ session('statusDelete') }}
-    </div>
-    <br>
-    @endif
+        @if (session('statusDelete'))
+        <br>
+        <div class="text-center alert alert-danger">
+            {{ session('statusDelete') }}
+        </div>
+        <br>
+        @endif
 
-    @if (session('datainsert'))
-    <br>
-    <div class="text-center alert alert-success">
-        {{ session('datainsert') }}
-    </div>
-    <br>
-    @endif
-        <a href="edit/new"><Button class="btn-primary float-right m-4">Add Hospital Records</button></a>
-    </div>
-    @endif
-
-    @if($form=="true")
-    <div class="container">
-        <h1>
-            {{ $formType }}
-        </h1>
-        <form class="row" method="POST" action="../update">
-            @csrf
-            <input type="hidden" value="@if($formType==='AddNew') @else {{$data_edit[0]->id}} @endif" name="id">
-            <div class="form-group col-6">
-                <label for="exampleFormControlInput1">Hospital_id</label>
-                <input type="text" maxlength="10" onkeyup="if (/\D/g.test(this.value))this.value = this.value.replace(/\D/g, '')" name="hospital_id"
-                    value="@if($formType==='AddNew') @else {{$data_edit[0]->hospital_id}} @endif" class="form-control"
-                    id="exampleFormControlInput1" placeholder="7897979797">
-
-                @error('hospital_id')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-
-            </div>
-
-            <div class="form-group col-6">
-                <label for="exampleFormControlInput1">Domestic_intimation_to</label>
-                <input type="email" name="domestic_intimation_to"
-                    value="@if($formType==='AddNew') @else {{$data_edit[0]->domestic_intimation_to}} @endif"
-                    class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                @error('domestic_intimation_to')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group col-6">
-                <label for="exampleFormControlInput1">Di_cc</label>
-                <input type="email" name="di_cc" value="@if($formType==='AddNew') @else {{$data_edit[0]->di_cc}} @endif"
-                    class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-
-                @error('di_cc')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group col-6">
-                <label for="exampleFormControlInput1">Di_bcc</label>
-                <input type="email" name="di_bcc"
-                    value="@if($formType==='AddNew') @else {{$data_edit[0]->di_bcc}} @endif" class="form-control"
-                    id="exampleFormControlInput1" placeholder="name@example.com">
-                @error('di_bcc')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group col-6">
-                <label for="exampleFormControlInput1">De_email</label>
-                <input type="email" name="de_email"
-                    value="@if($formType==='AddNew') @else {{$data_edit[0]->de_email}} @endif" class="form-control"
-                    id="exampleFormControlInput1" placeholder="name@example.com">
-
-                @error('de_email')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group col-6">
-                <label for="exampleFormControlSelect1">Assignee_group</label>
-                <select class="form-control" name="assignee_group"
-                    value="@if($formType==='AddNew') @else {{$data_edit[0]->assignee_group}} @endif"
-                    id="exampleFormControlSelect1">
-                    
-                    @foreach($config as $res )
-                    <option>{{ $res }}</option>
-                    @endforeach
-                    
-                </select>
-
-                @error('assignee_group')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group col-12">
-                <button class="btn-success">@if($formType=='Update'){{'Update Record Now !'}} @else {{ 'Add New Record'}} @endif </button>
-            </div>
-
-        </form>
+        @if (session('datainsert'))
+        <br>
+        <div class="text-center alert alert-success">
+            {{ session('datainsert') }}
+        </div>
+        <br>
+        @endif
+        <Button class="btn-primary float-right m-4" onclick="getform('new')">Add Hospital Records</button>
     </div>
     @endif
+
+    <div id="form"></div>
 
 
     @if($form=== "false")
-    <div class="p-2">
-        <table id="example" class="display" style="width:100%">
+    <div class="p-2" id="table">
+    <table id="example" class="display" style="width:100%">
             <thead>
                 <tr>
                     <th>Id </th>
@@ -162,8 +81,9 @@
                     <td>{{ $res->di_bcc }}</td>
                     <td>{{ $res->de_email }}</td>
                     <td>{{ $res->assignee_group }}</td>
-                    <td><a href="edit/{{ $res->id }}" > <Button class="btn-success">Edit</Button></a>
-                    <a href="delete/{{ $res->id }}" ><Button class="btn-danger mt-1">Delete</Button></a> </td>
+                    <td> <Button class="btn-success" onclick="getform({{ $res->id }})">Edit</Button>
+                        <Button onclick="deletes({{ $res->id }})" class="btn-danger mt-1">Delete</Button>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -180,11 +100,11 @@
                 </tr>
             </tfoot>
         </table>
-
     </div>
-@endif
-<br><br><hr><br><br><br><br>
-<
+    @endif
+    <br><br>
+    <hr><br><br><br><br>
+
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script>
@@ -194,6 +114,78 @@
         });
     });
     </script>
+    <script>
+    // ********* This is Ajax Code Js for Getting the Table after selecting the City Name ********* //
+    function getform(id) {
+        //let bank_id = document.getElementById('bank').value;
+        console.log(id);
+        var reqes = new XMLHttpRequest();
+        reqes.open("get", "http://localhost/vaidamhealth/public/edit/"+id, true);
+        reqes.send();
+        reqes.onreadystatechange = function() {
+            if (reqes.readyState == 4 && reqes.status === 200) {
+                document.getElementById('table').style.display = "none";
+                document.getElementById('form').innerHTML = reqes.responseText;
+                document.getElementById('form').style.display = "block";
+            }
+        }
+    }
+
+
+    function deletes(id) {
+        //let bank_id = document.getElementById('bank').value;
+        console.log(id);
+        var reqes = new XMLHttpRequest();
+        reqes.open("get", "http://localhost/vaidamhealth/public/delete/"+id, true);
+        reqes.send();
+        reqes.onreadystatechange = function() {
+            if (reqes.readyState == 4 && reqes.status === 200) {
+                document.getElementById('table').style.display = "none";
+                document.getElementById('table').innerHTML = reqes.responseText;
+                document.getElementById('table').style.display = "block";
+            }
+        }
+    }
+    </script>
+
+    <script>
+    function update() {
+        let Hospital_id = document.getElementById('Hospital_id').value;
+        let id = document.getElementById('id').value;
+        let Domestic_intimation_to = document.getElementById('Domestic_intimation_to').value;
+        let Di_cc = document.getElementById('Di_cc').value;
+        let Di_bcc = document.getElementById('Di_bcc').value;
+        let De_email = document.getElementById('De_email').value;
+        let Assignee_group = document.getElementById('Assignee_group').value;
+        let token=document.querySelector('input[name=_token]').value
+
+        console.log(token);
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "http://localhost/vaidamhealth/public/updates", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+
+        var data = {
+            hospital_id: Hospital_id,
+            id: id,
+            domestic_intimation_to: Domestic_intimation_to,
+            di_cc: Di_cc,
+            di_bcc: Di_bcc,
+            de_email: De_email,
+            assignee_group: Assignee_group,
+            _token:token
+        };
+        //xhttp.send(JSON.stringify(data));
+        xhttp.send(JSON.stringify(data));
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status === 200) {
+                document.getElementById('form').style.display = "none";
+                document.getElementById('table').innerHTML = xhttp.responseText;
+                document.getElementById('table').style.display = "block";
+            }
+        }
+    }
+    </script>
+
 </body>
 
 </html>

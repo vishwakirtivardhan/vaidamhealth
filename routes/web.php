@@ -14,12 +14,16 @@ use App\Http\Controllers\curdops;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('updates',[curdops::class,'update']);
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
-Route::post("update",[curdops::class,'update']);
+
 Route::get('index',[curdops::class,'lists']);
+Route::get('lisitng',[curdops::class,'listing']);
+
 Route::get('delete/{id}',[curdops::class,'delete']);
 Route::get('edit/{id}',[curdops::class,'edit'])->name('edit');
